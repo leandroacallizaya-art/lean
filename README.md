@@ -177,6 +177,12 @@ Haz clic en el botón para desplegar el proyecto automáticamente en Render. Ase
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/tu-usuario/lean)
 
+Nota: reemplaza `tu-usuario` por tu usuario real de GitHub en el enlace si hiciste fork del repo.
+
+Si tu repo es privado o Render todavía no tiene permisos sobre tu cuenta de GitHub, conéctalo aquí y luego elige tu repositorio:
+
+[Abrir Render y elegir repositorio](https://dashboard.render.com/blueprint/new)
+
 Este repositorio incluye `render.yaml`, por lo que Render detectará la configuración y creará un servicio web de Python con:
 
 - build: `pip install -r requirements.txt`
