@@ -3,54 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solitario - Proyecto Programación III</title>
+    <title>Solitario Klondike</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>🃏 Solitario Klondike</h1>
+            <h1><span class="star">✦</span> Solitario Klondike <span class="star">✦</span></h1>
+            <p class="instructions">Arrastra las cartas para organizarlas por palo y en orden ascendente</p>
+
             <div class="game-info">
-                <div class="info-item">
+                <div class="info-box">
+                    <span class="label">Puntos:</span>
+                    <span id="score-count" class="value">6</span>
+                </div>
+                <div class="info-box">
                     <span class="label">Movimientos:</span>
-                    <span id="moves-count" class="value">0</span>
+                    <span id="moves-count" class="value">6</span>
                 </div>
-                <div class="info-item">
-                    <span class="label">Estado:</span>
-                    <span id="game-status" class="value">No iniciado</span>
-                </div>
+                <button id="new-game-btn" class="btn-new-game">
+                    <span class="refresh-icon">↻</span> Nueva Partida
+                </button>
             </div>
         </header>
-
-        <div class="controls">
-            <button id="new-game-btn" class="btn btn-primary">Nuevo Juego</button>
-            <button id="save-game-btn" class="btn btn-secondary">Guardar Partida</button>
-            <button id="load-game-btn" class="btn btn-secondary">Cargar Partida</button>
-            <button id="stats-btn" class="btn btn-info">Estadísticas</button>
-        </div>
 
         <div class="game-board">
             <div class="top-row">
                 <div class="stock-area">
-                    <div id="stock" class="pile stock-pile" data-location="stock">
-                        <div class="card-back">🂠</div>
-                    </div>
+                    <div id="stock" class="pile stock-pile" data-location="stock"></div>
                     <div id="waste" class="pile waste-pile" data-location="waste"></div>
                 </div>
 
                 <div class="foundations">
-                    <div id="foundation-hearts" class="pile foundation-pile" data-location="foundation_hearts" data-suit="hearts">
-                        <div class="foundation-placeholder">♥</div>
-                    </div>
-                    <div id="foundation-diamonds" class="pile foundation-pile" data-location="foundation_diamonds" data-suit="diamonds">
-                        <div class="foundation-placeholder">♦</div>
-                    </div>
-                    <div id="foundation-clubs" class="pile foundation-pile" data-location="foundation_clubs" data-suit="clubs">
-                        <div class="foundation-placeholder">♣</div>
-                    </div>
-                    <div id="foundation-spades" class="pile foundation-pile" data-location="foundation_spades" data-suit="spades">
-                        <div class="foundation-placeholder">♠</div>
-                    </div>
+                    <div id="foundation-hearts" class="pile foundation-pile" data-location="foundation_hearts" data-suit="hearts"></div>
+                    <div id="foundation-diamonds" class="pile foundation-pile" data-location="foundation_diamonds" data-suit="diamonds"></div>
+                    <div id="foundation-clubs" class="pile foundation-pile" data-location="foundation_clubs" data-suit="clubs"></div>
+                    <div id="foundation-spades" class="pile foundation-pile" data-location="foundation_spades" data-suit="spades"></div>
                 </div>
             </div>
 
@@ -74,11 +62,6 @@
                 <div id="modal-body"></div>
             </div>
         </div>
-
-        <footer class="footer">
-            <p>Proyecto Programación III - Solitario Klondike</p>
-            <p class="tech-stack">Python • Flask • JavaScript • HTML5 • CSS3</p>
-        </footer>
     </div>
 
     <script src="script.js"></script>

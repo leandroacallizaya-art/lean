@@ -19,14 +19,12 @@ const cardValues = {
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeEventListeners();
-    showMessage('Bienvenido al Solitario. Haz clic en "Nuevo Juego" para comenzar.', 'info');
+    initializeEmptyPiles();
+    showMessage('Bienvenido al Solitario. Haz clic en "Nueva Partida" para comenzar.', 'info');
 });
 
 function initializeEventListeners() {
     document.getElementById('new-game-btn').addEventListener('click', startNewGame);
-    document.getElementById('save-game-btn').addEventListener('click', saveGame);
-    document.getElementById('load-game-btn').addEventListener('click', showLoadGameModal);
-    document.getElementById('stats-btn').addEventListener('click', showStatistics);
 
     document.getElementById('stock').addEventListener('click', drawFromStock);
 
@@ -38,6 +36,11 @@ function initializeEventListeners() {
             closeModal();
         }
     });
+}
+
+function initializeEmptyPiles() {
+    const stockElement = document.getElementById('stock');
+    stockElement.innerHTML = '<div class="card-back">20</div>';
 }
 
 async function startNewGame() {
@@ -129,152 +132,6 @@ async function moveCard(fromLocation, toLocation, cardIndex = -1) {
     }
 }
 
-async function saveGame() {
-    if (!currentGameState) {
-        showMessage('No hay un juego activo para guardar.', 'warning');
-        return;
-    }
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/save_game`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                game_id: currentGameState.game_id
-            })
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            showMessage('Partida guardada exitosamente.', 'success');
-        } else {
-            showMessage(`Error al guardar: ${result.message}`, 'error');
-        }
-    } catch (error) {
-        showMessage(`Error: ${error.message}`, 'error');
-        console.error('Error:', error);
-    }
-}
-
-async function showLoadGameModal() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/list_games`);
-        const result = await response.json();
-
-        if (result.success && result.data.length > 0) {
-            const games = result.data;
-
-            const gameListHTML = `
-                <ul class="game-list">
-                    ${games.map(game => `
-                        <li onclick="loadGame('${game.game_id}')">
-                            <div class="game-info-modal">
-                                <strong>ID: ${game.game_id}</strong>
-                                <span>Movimientos: ${game.moves_count}</span>
-                                <span>Estado: ${game.game_won ? '✅ Ganado' : '🎮 En progreso'}</span>
-                                <span>Guardado: ${new Date(game.saved_at).toLocaleString()}</span>
-                            </div>
-                            <button class="delete-btn" onclick="event.stopPropagation(); deleteGame('${game.game_id}')">Eliminar</button>
-                        </li>
-                    `).join('')}
-                </ul>
-            `;
-
-            showModal('Cargar Partida', gameListHTML);
-        } else {
-            showMessage('No hay partidas guardadas.', 'info');
-        }
-    } catch (error) {
-        showMessage(`Error: ${error.message}`, 'error');
-        console.error('Error:', error);
-    }
-}
-
-async function loadGame(gameId) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/load_game/${gameId}`);
-        const result = await response.json();
-
-        if (result.success) {
-            currentGameState = result.data;
-            renderGame(currentGameState);
-            closeModal();
-            showMessage('Partida cargada exitosamente.', 'success');
-        } else {
-            showMessage(`Error al cargar: ${result.message}`, 'error');
-        }
-    } catch (error) {
-        showMessage(`Error: ${error.message}`, 'error');
-        console.error('Error:', error);
-    }
-}
-
-async function deleteGame(gameId) {
-    if (!confirm('¿Estás seguro de eliminar esta partida?')) {
-        return;
-    }
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/delete_game/${gameId}`, {
-            method: 'DELETE'
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            showMessage('Partida eliminada.', 'success');
-            showLoadGameModal();
-        } else {
-            showMessage(`Error: ${result.message}`, 'error');
-        }
-    } catch (error) {
-        showMessage(`Error: ${error.message}`, 'error');
-        console.error('Error:', error);
-    }
-}
-
-async function showStatistics() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/statistics`);
-        const result = await response.json();
-
-        if (result.success) {
-            const stats = result.data;
-
-            const statsHTML = `
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-value">${stats.total_games}</span>
-                        <span class="stat-label">Total de Partidas</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">${stats.won_games}</span>
-                        <span class="stat-label">Partidas Ganadas</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">${stats.win_rate.toFixed(1)}%</span>
-                        <span class="stat-label">Tasa de Victoria</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value">${stats.average_moves}</span>
-                        <span class="stat-label">Promedio de Movimientos</span>
-                    </div>
-                </div>
-            `;
-
-            showModal('Estadísticas', statsHTML);
-        } else {
-            showMessage('No hay estadísticas disponibles.', 'info');
-        }
-    } catch (error) {
-        showMessage(`Error: ${error.message}`, 'error');
-        console.error('Error:', error);
-    }
-}
-
 function renderGame(gameState) {
     updateGameInfo(gameState);
 
@@ -290,14 +147,18 @@ function renderGame(gameState) {
 function updateGameInfo(gameState) {
     document.getElementById('moves-count').textContent = gameState.moves_count;
 
-    const statusElement = document.getElementById('game-status');
-    if (gameState.game_won) {
-        statusElement.textContent = '🎉 ¡Ganado!';
-        statusElement.style.color = '#28a745';
-    } else {
-        statusElement.textContent = '🎮 En juego';
-        statusElement.style.color = '#1e3c72';
-    }
+    const score = calculateScore(gameState);
+    document.getElementById('score-count').textContent = score;
+}
+
+function calculateScore(gameState) {
+    let score = 0;
+
+    Object.values(gameState.foundations).forEach(foundation => {
+        score += foundation.length;
+    });
+
+    return score;
 }
 
 function renderTableau(tableau) {
@@ -342,10 +203,10 @@ function updateStock(stockCount) {
     const stockElement = document.getElementById('stock');
 
     if (stockCount > 0) {
-        stockElement.innerHTML = '<div class="card-back">🂠</div>';
+        stockElement.innerHTML = `<div class="card-back">${stockCount}</div>`;
         stockElement.style.cursor = 'pointer';
     } else {
-        stockElement.innerHTML = '<div class="foundation-placeholder">↻</div>';
+        stockElement.innerHTML = '<div class="card-back" style="background: rgba(124, 58, 237, 0.3); color: #7c3aed;">↻</div>';
         stockElement.style.cursor = 'pointer';
     }
 }
@@ -365,8 +226,14 @@ function createCardElement(card, location, index) {
     const displayValue = cardValues[card.value] || card.value;
 
     cardDiv.innerHTML = `
-        <div class="card-value">${displayValue}</div>
-        <div class="card-suit">${cardSymbols[card.suit]}</div>
+        <div class="card-top">
+            <div class="card-value">${displayValue}</div>
+            <div class="card-suit">${cardSymbols[card.suit]}</div>
+        </div>
+        <div class="card-bottom">
+            <div class="card-value">${displayValue}</div>
+            <div class="card-suit">${cardSymbols[card.suit]}</div>
+        </div>
     `;
 
     cardDiv.addEventListener('click', () => handleCardClick(location, index, card));
