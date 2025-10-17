@@ -169,6 +169,36 @@ O directamente:
 python backend/main.py
 ```
 
+## Despliegue
+
+### Despliegue 1-Clic (Render)
+
+Haz clic en el botón para desplegar el proyecto automáticamente en Render. Asegúrate de que tu repositorio esté público en GitHub y, si es necesario, reemplaza la URL del repo en el enlace.
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/tu-usuario/lean)
+
+Este repositorio incluye `render.yaml`, por lo que Render detectará la configuración y creará un servicio web de Python con:
+
+- build: `pip install -r requirements.txt`
+- start: `python -m backend.main`
+
+La aplicación expone el puerto definido por la variable de entorno `PORT` (por defecto `5000`).
+
+### Despliegue manual en Render
+
+1. Crea una cuenta en Render (gratuita) y haz clic en `New > Web Service`.
+2. Conecta tu cuenta de GitHub y selecciona este repositorio.
+3. Configura:
+   - Runtime: Python
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `python -m backend.main`
+   - Auto Deploy: On (opcional)
+4. Despliega. Render asignará una URL pública.
+
+Notas:
+- El backend Flask sirve el frontend estático desde `frontend/` en la ruta `/`.
+- No se requieren variables de entorno adicionales.
+
 ### Paso 4: Abrir en el navegador
 
 Acceder a: **http://localhost:5000**
