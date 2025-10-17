@@ -1,0 +1,128 @@
+╔════════════════════════════════════════════════════════════════╗
+║         SOLITARIO KLONDIKE - PROYECTO PROGRAMACIÓN III         ║
+╚════════════════════════════════════════════════════════════════╝
+
+📋 INSTRUCCIONES DE EJECUCIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  INSTALACIÓN DE DEPENDENCIAS
+   ────────────────────────────────
+   Ejecutar en la terminal (desde el directorio raíz del proyecto):
+   
+   pip install -r requirements.txt
+   
+   O si tienes Python 3:
+   
+   pip3 install -r requirements.txt
+
+
+2️⃣  EJECUTAR EL SERVIDOR
+   ─────────────────────────
+   Opción A (recomendada):
+   
+   python -m backend.main
+   
+   Opción B:
+   
+   python backend/main.py
+   
+   O con Python 3:
+   
+   python3 -m backend.main
+
+
+3️⃣  ABRIR EN EL NAVEGADOR
+   ───────────────────────────
+   Una vez que el servidor esté corriendo, abrir en el navegador:
+   
+   http://localhost:5000
+   
+   El servidor mostrará un mensaje similar a:
+   ==================================================
+       SOLITARIO - Proyecto Programación III
+   ==================================================
+   
+   Iniciando servidor Flask...
+   
+   Accede al juego en: http://localhost:5000
+   ==================================================
+
+
+4️⃣  CÓMO JUGAR
+   ──────────────
+   - Click en "Nuevo Juego" para iniciar
+   - Click en una carta para seleccionarla
+   - Click en el destino para moverla
+   - Click en el mazo (stock) para extraer cartas
+   - Usa los botones superiores para:
+     * Guardar partida
+     * Cargar partida
+     * Ver estadísticas
+
+
+5️⃣  DETENER EL SERVIDOR
+   ────────────────────────
+   Presionar: Ctrl + C en la terminal
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 ESTRUCTURA DEL PROYECTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+backend/
+├── __init__.py          → Inicialización del paquete
+├── card.py              → Clase Card (hereda de AbstractCard)
+├── deck.py              → Clase Deck con CRUD completo
+├── game_manager.py      → Lógica del juego
+├── database.py          → Persistencia con JSON
+└── main.py              → Servidor Flask
+
+frontend/
+├── index.html           → Interfaz web
+├── style.css            → Estilos
+└── script.js            → Interacción cliente
+
+requirements.txt         → Dependencias
+README.md                → Documentación completa
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ REQUISITOS CUMPLIDOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Herencia de clase abstracta (Card → AbstractCard)
+✓ Clase principal con 5 atributos (Deck)
+✓ Atributo encapsulado (__cards)
+✓ CRUD completo en Deck (create, read, update, delete)
+✓ Polimorfismo (sobrecarga de operadores)
+✓ Relación de uso (GameManager usa Deck y Card)
+✓ Mínimo 3 módulos (collections, json, re, random, abc, datetime)
+✓ Interfaz gráfica web interactiva
+✓ Código completamente documentado
+✓ requirements.txt
+✓ Función main() como punto de entrada
+✓ README.md completo
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 SOLUCIÓN DE PROBLEMAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problema: "ModuleNotFoundError: No module named 'flask'"
+Solución: pip install -r requirements.txt
+
+Problema: "Puerto 5000 ya está en uso"
+Solución: Editar backend/main.py y cambiar el puerto a 8080
+
+Problema: "No se puede importar backend"
+Solución: Ejecutar desde el directorio raíz con python -m backend.main
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+¡Proyecto listo para ejecutar y entregar! 🎉
+
+Para más información, consultar README.md

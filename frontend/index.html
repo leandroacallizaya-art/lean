@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solitario - Proyecto Programación III</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🃏 Solitario Klondike</h1>
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="label">Movimientos:</span>
+                    <span id="moves-count" class="value">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Estado:</span>
+                    <span id="game-status" class="value">No iniciado</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="controls">
+            <button id="new-game-btn" class="btn btn-primary">Nuevo Juego</button>
+            <button id="save-game-btn" class="btn btn-secondary">Guardar Partida</button>
+            <button id="load-game-btn" class="btn btn-secondary">Cargar Partida</button>
+            <button id="stats-btn" class="btn btn-info">Estadísticas</button>
+        </div>
+
+        <div class="game-board">
+            <div class="top-row">
+                <div class="stock-area">
+                    <div id="stock" class="pile stock-pile" data-location="stock">
+                        <div class="card-back">🂠</div>
+                    </div>
+                    <div id="waste" class="pile waste-pile" data-location="waste"></div>
+                </div>
+
+                <div class="foundations">
+                    <div id="foundation-hearts" class="pile foundation-pile" data-location="foundation_hearts" data-suit="hearts">
+                        <div class="foundation-placeholder">♥</div>
+                    </div>
+                    <div id="foundation-diamonds" class="pile foundation-pile" data-location="foundation_diamonds" data-suit="diamonds">
+                        <div class="foundation-placeholder">♦</div>
+                    </div>
+                    <div id="foundation-clubs" class="pile foundation-pile" data-location="foundation_clubs" data-suit="clubs">
+                        <div class="foundation-placeholder">♣</div>
+                    </div>
+                    <div id="foundation-spades" class="pile foundation-pile" data-location="foundation_spades" data-suit="spades">
+                        <div class="foundation-placeholder">♠</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tableau">
+                <div id="tableau-0" class="tableau-column" data-location="tableau_0"></div>
+                <div id="tableau-1" class="tableau-column" data-location="tableau_1"></div>
+                <div id="tableau-2" class="tableau-column" data-location="tableau_2"></div>
+                <div id="tableau-3" class="tableau-column" data-location="tableau_3"></div>
+                <div id="tableau-4" class="tableau-column" data-location="tableau_4"></div>
+                <div id="tableau-5" class="tableau-column" data-location="tableau_5"></div>
+                <div id="tableau-6" class="tableau-column" data-location="tableau_6"></div>
+            </div>
+        </div>
+
+        <div id="message-box" class="message-box"></div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modal-title">Título</h2>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Proyecto Programación III - Solitario Klondike</p>
+            <p class="tech-stack">Python • Flask • JavaScript • HTML5 • CSS3</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
