@@ -175,7 +175,11 @@ python backend/main.py
 
 Haz clic en el botón para desplegar el proyecto automáticamente en Render. Asegúrate de que tu repositorio esté público en GitHub y, si es necesario, reemplaza la URL del repo en el enlace.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/tu-usuario/lean)
+[![Deploy LaraFrenkel/lean on Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/LaraFrenkel/lean)
+
+También puedes desplegar desde el fork/organización alterna:
+
+[Deploy leandroacallizaya-art/lean](https://render.com/deploy?repo=https://github.com/leandroacallizaya-art/lean)
 
 Nota: reemplaza `tu-usuario` por tu usuario real de GitHub en el enlace si hiciste fork del repo.
 
